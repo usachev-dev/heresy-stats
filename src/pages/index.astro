@@ -1,0 +1,50 @@
+---
+import { DataService } from '../lib/data-service';
+import type { AttackerStats, AttackResults } from '../lib/data-service';
+import '../styles/index.css';
+
+// Get all dinosaurs with slugs for linking
+let dataService = new DataService();
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Horus heresy weapons stats table</title>
+	</head>
+	<body class="index">
+		<div class="container">
+		<h1>Horus heresy weapons stats table</h1>
+		{
+			dataService.table.map((atk: AttackerStats) => (
+				<table class="table">
+					<tbody>
+						<tr>
+							<th colspan="99">{atk.attacker.name}</td>
+						</tr>
+						{
+							atk.results.map((weapon: AttackResults) => <tr>
+								<td>{weapon.weapon.name}</td>
+								{weapon.targetResults.map((target) => (
+									<tr>
+										<td>{target.target.name}</th>
+										<td>Mean dmg per {weapon.attackerCount} units: {target.meanDmg}</td>
+										<td>Mean dmg/pts: {target.meanPerPT}</td>
+										<td>Median dmg per {weapon.attackerCount}: {target.meanDmg}</td>
+										<td>Median dmg/pts: {target.meanPerPT}</td>
+										<td>Dispersion: {target.dispersion}</td>
+									</tr>
+								))}
+							</tr>
+						)}
+					</tbody>
+				</table>
+			))
+		}
+		
+		</div>
+	</body>
+</html>

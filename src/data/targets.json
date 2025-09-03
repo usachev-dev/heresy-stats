@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Militia",
+        "t": 3,
+        "w": 1,
+        "ws": 3,
+        "save": 5
+    },
+    {
+        "name": "Tactical Marine",
+        "t": 4,
+        "w": 1,
+        "ws": 4,
+        "save": 3
+    },
+    {
+        "name": "Cataphract Terminator",
+        "t": 5,
+        "w": 2,
+        "ws": 4,
+        "save": 2,
+        "invul": 4
+    },
+    {
+        "name": "Contemptor",
+        "t": 7,
+        "w": 6,
+        "ws": 4,
+        "save": 2
+    },
+    {
+        "name": "Rhino",
+        "t": 9,
+        "w": 5,
+        "ws": 1,
+        "save": 0
+    },
+    {
+        "name": "Vindicator",
+        "t": 10,
+        "w": 6,
+        "ws": 1,
+        "save": 0
+    },
+    {
+        "name": "Land Raider",
+        "t": 11,
+        "w": 8,
+        "ws": 1,
+        "save": 0
+    }
+]

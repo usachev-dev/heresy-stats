@@ -1,0 +1,33 @@
+[
+    {
+        "name": "Tactical Bolter",
+        "type": "shoot" ,
+        "a": 2,
+        "s": 4,
+        "ap": 5,
+        "dmg": 1,
+        "special": [{
+            "name": "Heavy FP",
+            "value": 1
+        }],
+        "cost": 0
+    },
+    {
+        "name": "CCW",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 0,
+        "ap": 0,
+        "dmg": 1,
+        "special": []
+    },
+    {
+        "name": "Bolter",
+        "type": "shoot" ,
+        "a": 2,
+        "s": 4,
+        "ap": 5,
+        "dmg": 1,
+        "special": []
+    }
+]

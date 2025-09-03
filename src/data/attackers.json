@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Tactical Marine",
+        "a": 1,
+        "ws": 4,
+        "bs": 4,
+        "s": 4,
+        "weaponsAvailable": ["Tactical Bolter", "Bolter", "CCW"],
+        "cost": 10
+    }
+]
