@@ -1,10 +1,12 @@
 ---
+import { StatsService } from '../lib/stats-service';
 import { DataService } from '../lib/data-service';
-import type { AttackerStats, AttackResults } from '../lib/data-service';
+import type { AttackerStats, AttackResult } from '../lib/stats-service';
 import '../styles/index.css';
 
 // Get all dinosaurs with slugs for linking
-let dataService = new DataService();
+let data = new DataService();
+let stats = new StatsService(data);
 ---
 
 <html lang="en">
@@ -19,25 +21,20 @@ let dataService = new DataService();
 		<div class="container">
 		<h1>Horus heresy weapons stats table</h1>
 		{
-			dataService.table.map((atk: AttackerStats) => (
+			stats.table.map((atk: AttackerStats) => (
 				<table class="table">
 					<tbody>
 						<tr>
 							<th colspan="99">{atk.attacker.name}</td>
 						</tr>
 						{
-							atk.results.map((weapon: AttackResults) => <tr>
-								<td>{weapon.weapon.name}</td>
-								{weapon.targetResults.map((target) => (
-									<tr>
-										<td>{target.target.name}</th>
-										<td>Mean dmg per {weapon.attackerCount} units: {target.meanDmg}</td>
-										<td>Mean dmg/pts: {target.meanPerPT}</td>
-										<td>Median dmg per {weapon.attackerCount}: {target.meanDmg}</td>
-										<td>Median dmg/pts: {target.meanPerPT}</td>
-										<td>Dispersion: {target.dispersion}</td>
-									</tr>
-								))}
+							atk.results.map((results: AttackResult) => <tr>
+								<th>{results.weapon.name}</td>
+										<td>{results.target.name}</th>
+										<td>Mean kill per 10: {results.stats.meanKilledPer10}</td>
+										<td>Median to kil one: {results.stats.medianToKillOne}</td>
+										<td>Mean pts to kill 100pts: {results.stats.ptToKillOne}</td>
+										<td>Dispersion: {results.stats.dispersion}</td>
 							</tr>
 						)}
 					</tbody>

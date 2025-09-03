@@ -2,10 +2,7 @@ import weaponsData from "../data/weapons.json" with { type: "json" };
 import targetsData from "../data/targets.json" with { type: "json" };
 import attackersData from "../data/attackers.json" with { type: "json" };
 
-let diceCount = 9999;
-let attackerCount = 10;
-
-interface WeaponData {
+export interface WeaponData {
     name: string;
     type?: string;
     a?: number;
@@ -18,12 +15,12 @@ interface WeaponData {
     cost?: number;
 }
 
-interface SpecialData {
+export interface SpecialData {
     name: string;
     value: number;
 }
 
-interface AttackerData {
+export interface AttackerData {
     name: string;
     a: number;
     ws: number;
@@ -33,7 +30,7 @@ interface AttackerData {
     cost: number;
 }
 
-interface TargetData {
+export interface TargetData {
     name: string;
     t: number;
     w: number;
@@ -42,36 +39,15 @@ interface TargetData {
     invul?: number;
 }
 
-function d6(): number {
-  return Math.floor(Math.random() * 5) + 1;
-}
 
-class Dice {
-    rolls: number[] = new Array(diceCount).fill(0).map(d6)
-    current = 0;
-    public roll(): number {
-        let result = this.rolls[this.current]
-        if (this.current < this.rolls.length - 1) {
-            this.current++
-        } else {
-            this.current = 0
-        }
-        return result
-    }
-
-    test(tn: number): boolean {
-        return this.roll() >= tn; 
-    }
-}
-
-interface Weapon extends WeaponData {
+export interface Weapon extends WeaponData {
     type: "shoot" | "cc";
     s: number;
     a: number;
     totalCost: number; 
 }
 
-interface Attacker extends AttackerData {
+export interface Attacker extends AttackerData {
     weapons: Weapon[];
 }
 
@@ -118,61 +94,7 @@ function attackerFromData(ad: AttackerData): Attacker {
     }
 }
 
-export interface AttackResults {
-    attackerCount: number;
-    weapon: Weapon;
-    targetResults: {
-        target: TargetData;
-        meanDmg: number;
-        meanPerPT: number;
-        medianDmg: number;
-        medianPerPT: number;
-        dispersion: number;
-    }[]
-}
-
-export interface AttackerStats {
-    attacker: Attacker;
-    results: AttackResults[]
-};
-
-function attackerStatsFromAttacker(atk: Attacker, dice: Dice): AttackerStats {
-    let results: AttackResults[] = []
-    atk.weapons.forEach(weapon => {
-        let result: AttackResults = {
-            attackerCount,
-            weapon,
-            targetResults: []
-        }
-        targetsData.forEach(target => {
-            result.targetResults.push({
-                target,
-                //TODO
-                meanDmg: 0,
-                meanPerPT: 0,
-                medianDmg: 0,
-                medianPerPT: 0,
-                dispersion: 0,
-            })
-        })
-        results.push(result);
-    })
-
-    return {
-        attacker: atk,
-        results,
-    }
-}
-
-
 export class DataService {
     attackers: Attacker[] = attackersData.map(attackerFromData);
-    
-    dice = new Dice();
-
-    constructor() {
-        console.log(this.table)
-    }
-
-    table: AttackerStats[] = this.attackers.map((atk) => attackerStatsFromAttacker(atk, this.dice))
+    targets: TargetData[] = targetsData;
 }
