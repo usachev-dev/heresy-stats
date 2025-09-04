@@ -32,11 +32,13 @@ export interface AttackerData {
 
 export interface TargetData {
     name: string;
-    t: number;
+    t?: number;
+    av?: number;
     w: number;
     ws: number;
     save: number;
     invul?: number;
+    cost: number;
 }
 
 
@@ -44,6 +46,8 @@ export interface Weapon extends WeaponData {
     type: "shoot" | "cc";
     s: number;
     a: number;
+    ws: number;
+    bs: number;
     totalCost: number; 
 }
 
@@ -83,6 +87,8 @@ function attackerFromData(ad: AttackerData): Attacker {
             type, 
             s,
             a,
+            ws: ad.ws,
+            bs: ad.bs,
             totalCost
         }
     })

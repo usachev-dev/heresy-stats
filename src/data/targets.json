@@ -4,14 +4,16 @@
         "t": 3,
         "w": 1,
         "ws": 3,
-        "save": 5
+        "save": 5,
+        "cost": 5
     },
     {
         "name": "Tactical Marine",
         "t": 4,
         "w": 1,
         "ws": 4,
-        "save": 3
+        "save": 3,
+        "cost": 10
     },
     {
         "name": "Cataphract Terminator",
@@ -19,34 +21,39 @@
         "w": 2,
         "ws": 4,
         "save": 2,
-        "invul": 4
+        "invul": 4,
+        "cost": 35
     },
     {
         "name": "Contemptor",
         "t": 7,
         "w": 6,
         "ws": 4,
-        "save": 2
+        "save": 2,
+        "cost": 170
     },
     {
         "name": "Rhino",
-        "t": 9,
+        "av": 12,
         "w": 5,
         "ws": 1,
-        "save": 0
+        "save": 0,
+        "cost": 60
     },
     {
         "name": "Vindicator",
-        "t": 10,
+        "av": 13,
         "w": 6,
         "ws": 1,
-        "save": 0
+        "save": 0,
+        "cost": 130
     },
     {
         "name": "Land Raider",
-        "t": 11,
+        "av": 14,
         "w": 8,
         "ws": 1,
-        "save": 0
+        "save": 0,
+        "cost": 265
     }
 ]

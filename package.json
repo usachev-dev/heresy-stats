@@ -9,7 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.12.4",
-    "skeleton-css": "^2.0.4"
+    "astro": "5.12.4",
+    "lodash": "4.17.21",
+    "simple-statistics": "7.8.8",
+    "skeleton-css": "2.0.4"
   }
 }

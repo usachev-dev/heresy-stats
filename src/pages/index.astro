@@ -7,6 +7,9 @@ import '../styles/index.css';
 // Get all dinosaurs with slugs for linking
 let data = new DataService();
 let stats = new StatsService(data);
+function round(num: number): number {
+	return Math.round(num * 100) / 100
+}
 ---
 
 <html lang="en">
@@ -27,14 +30,22 @@ let stats = new StatsService(data);
 						<tr>
 							<th colspan="99">{atk.attacker.name}</td>
 						</tr>
+						<tr>
+							<th>Weapon</th>
+							<th>Target</th>
+							<th>Mean kill per 10</th>
+							<th>Mode first to kill one</th>
+							<th>Mean pts to kill one</th>
+							<th>Mean pts to kill 100pts</th>
+						</tr>
 						{
 							atk.results.map((results: AttackResult) => <tr>
-								<th>{results.weapon.name}</td>
-										<td>{results.target.name}</th>
-										<td>Mean kill per 10: {results.stats.meanKilledPer10}</td>
-										<td>Median to kil one: {results.stats.medianToKillOne}</td>
-										<td>Mean pts to kill 100pts: {results.stats.ptToKillOne}</td>
-										<td>Dispersion: {results.stats.dispersion}</td>
+								<td>{results.weapon.name}</td>
+								<td>{results.target.name}</td>
+								<td>{round(results.stats.meanKilledPer10)}</td>
+								<td>{round(results.stats.modeToKillOne)}</td>
+								<td>{round(results.stats.meanPtToKillOne)}</td>
+								<td>{round(results.stats.meanPtsKilledPer100pt)}</td>
 							</tr>
 						)}
 					</tbody>

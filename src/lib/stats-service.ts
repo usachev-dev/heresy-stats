@@ -1,28 +1,13 @@
 import type { Attacker, DataService, TargetData, Weapon } from "./data-service";
-const diceCount = 9999;
-
-function d6(): number {
-  return Math.floor(Math.random() * 5) + 1;
-}
+import { canKill, Roller, type AttackResultStats } from "./roller";
+import {mode, mean} from "simple-statistics";
 
 export interface Stats {
-    medianToKillOne: number;
-    meanPtsToKill100pts: number;
-    ptToKillOne: number;
+    modeToKillOne: number;
+    meanPtToKillOne: number;
     meanKilledPer10: number;
     meanKilledPer100pt: number;
-    dispersion: number;
-}
-
-function newStats(): Stats {
-    return {
-        medianToKillOne: 0,
-        meanPtsToKill100pts: 0,
-        ptToKillOne: 0,
-        meanKilledPer10: 0,
-        meanKilledPer100pt: 0,
-        dispersion: 0,
-    }
+    meanPtsKilledPer100pt: number;
 }
 
 export interface AttackResult {
@@ -35,56 +20,53 @@ export interface AttackerStats {
     attacker: Attacker;
     results: AttackResult[]
 };
-
-function weaponAtTargetStats(weapon: Weapon, target: TargetData, dice: Dice): Stats {
-    let result = newStats();
-    //TODO
-    return result;
-}
-
-function attackerStatsFromAttacker(atk: Attacker, targetsData: TargetData[], dice: Dice): AttackerStats {
-    let results: AttackResult[] = []
-    atk.weapons.forEach(weapon => {
-        targetsData.forEach(target => {
-            results.push({
-                weapon,
-                target,
-            
-                stats: weaponAtTargetStats(weapon, target, dice)
-            })
-        })
-    })
-
-    return {
-        attacker: atk, 
-        results,
-    }
-}
-
-
-class Dice {
-    rolls: number[] = new Array(diceCount).fill(0).map(d6)
-    current = 0;
-    public roll(): number {
-        let result = this.rolls[this.current]
-        if (this.current < this.rolls.length - 1) {
-            this.current++
-        } else {
-            this.current = 0
-        }
-        return result
-    }
-
-    test(tn: number): boolean {
-        return this.roll() >= tn; 
-    }
-}
+ 
 
 export class StatsService {
-    dice = new Dice();
+    roller = new Roller();
     constructor(private data: DataService) {
-        this.table = this.data.attackers.map((atk) => attackerStatsFromAttacker(atk, this.data.targets, this.dice))
+        console.log('StatsService')
+        this.table = this.data.attackers.map((atk) => this.attackerStatsFromAttacker(atk, this.data.targets))
     }
     table: AttackerStats[];
 
+    weaponAtTargetStats(weapon: Weapon, target: TargetData): Stats {
+        if (!canKill(weapon, target)) {
+            return {
+                modeToKillOne: 0,
+                meanPtToKillOne: 0,
+                meanKilledPer10: 0,
+                meanKilledPer100pt: 0,
+                meanPtsKilledPer100pt: 0,
+            };
+        }
+        let attackResults: AttackResultStats[] = new Array(9999).fill(0).map(() => this.roller.makeAttack(weapon, target));
+        
+        let result = {
+            modeToKillOne: mode(attackResults.map(r => r.attackedToKillOne)),
+            meanPtToKillOne: mean(attackResults.map(r => r.ptToKillOne)),
+            meanKilledPer10: mean(attackResults.map(r => r.killedPer10)),
+            meanKilledPer100pt: mean(attackResults.map(r => r.killedPer100pt)),
+            meanPtsKilledPer100pt: mean(attackResults.map(r => r.ptsKilledPer100pt)),
+        };
+        return result;
+    }
+        
+    attackerStatsFromAttacker(atk: Attacker, targetsData: TargetData[]): AttackerStats {
+        let results: AttackResult[] = []
+        atk.weapons.forEach(weapon => {
+            targetsData.forEach(target => {
+                results.push({
+                    weapon,
+                    target,
+                    stats: this.weaponAtTargetStats(weapon, target)
+                })
+            })
+        })
+
+        return {
+            attacker: atk, 
+            results,
+        }
+    }
 }
