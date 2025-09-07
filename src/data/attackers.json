@@ -6,6 +6,113 @@
         "bs": 4,
         "s": 4,
         "weaponsAvailable": ["Tactical Bolter", "Bolter", "CCW"],
-        "cost": 10
+        "cost": 10,
+        "squadSize": 10
+    },
+    {
+        "name": "Assault Marine",
+        "a": 2,
+        "ws": 4,
+        "bs": 4,
+        "s": 4,
+        "weaponsAvailable": ["chainsword", "Power Sword vet", "Power Axe vet", "Power Maul vet", "Power Fist vet", "Thunder Hammer vet", "Lightning Claw vet", "Pair of Lightning Claws vet"],
+        "cost": 14,
+        "squadSize": 10
+    },
+    {
+        "name": "Tactical Veteran",
+        "a": 2,
+        "ws": 4,
+        "bs": 5,
+        "s": 4,
+        "weaponsAvailable": ["Astartes Shotgun", "Disintegrator rifle overload", "Disintegrator blaster overload", "Heavy Disintegrator overload", "Meltagun", "Plasmagun", "Plasmagun overload", "Volkite Charger", "Volkite Caliver", "Rotor Cannon", "Heavy bolter", "Autocannon", "Missile Launcher Krak", "Multi-melta", "Volkite Culevrin", "Lascannon"],
+        "cost": 14,
+        "squadSize": 5
+    },
+    {
+        "name": "Assault Veteran",
+        "a": 3,
+        "ws": 5,
+        "bs": 4,
+        "s": 4,
+        "weaponsAvailable": ["chainsword", "Power Sword vet", "Power Axe vet", "Power Maul vet", "Power Fist vet", "Thunder Hammer vet", "Lightning Claw vet", "Pair of Lightning Claws vet"],
+        "cost": 22,
+        "squadSize": 5
+    },
+    {
+        "name": "Tactical Support Squad",
+        "a": 1,
+        "ws": 4,
+        "bs": 4,
+        "s": 4,
+        "weaponsAvailable": ["Meltagun", "Plasmagun", "Plasmagun overload", "Volkite Charger", "Volkite Caliver", "Rotor Cannon"],
+        "cost": 10,
+        "squadSize": 5
+    },
+    {
+        "name": "Heavy Support Squad",
+        "a": 1,
+        "ws": 4,
+        "bs": 4,
+        "s": 4,
+        "weaponsAvailable": ["Heavy bolter", "Autocannon", "Missile Launcher Krak", "Multi-melta", "Volkite Culevrin", "Lascannon", "Iliastus assault cannon", "Iliastus assault cannon overload"],
+        "cost": 10,
+        "squadSize": 5
+    },
+    {
+        "name": "Rapier Battery",
+        "a": 1,
+        "ws": 4,
+        "bs": 4,
+        "s": 4,
+        "weaponsAvailable": ["Gravis heavy bolter battery", "Laser Destroyer"],
+        "cost": 40
+    },
+    {
+        "name": "Vindicator Siege Tank",
+        "a": 0,
+        "ws": 1,
+        "bs": 4,
+        "s": 4,
+        "weaponsAvailable": ["Magna Laser Destroyer"],
+        "cost": 140
+    },
+    {
+        "name": "Land Raider",
+        "a": 0,
+        "ws": 1,
+        "bs": 4,
+        "s": 4,
+        "weaponsAvailable": ["Twin lascannon LR", "Heavy bolter"],
+        "cost": 265
+    },
+    {
+        "name": "Outrider",
+        "a": 1,
+        "ws": 4,
+        "bs": 4,
+        "s": 4,
+        "weaponsAvailable": ["Twin Bolter", "Twin Plasma", "Twin Plasma Overload"],
+        "cost": 20,
+        "squadSize": 5
+    },
+    {
+        "name": "Terminator",
+        "a": 1,
+        "ws": 4,
+        "bs": 4,
+        "s": 4,
+        "weaponsAvailable": ["Twin Bolter", "Volkite Charger steady", "Reaper Autocannon", "Power Sword", "Power Axe", "Power Maul", "Power Fist", "Thunder Hammer", "Lightning Claw", "Pair of Lightning Claws"],
+        "cost": 30,
+        "squadSize": 5
+    },
+    {
+        "name": "Contemptor",
+        "a": 4,
+        "ws": 4,
+        "bs": 4,
+        "s": 4,
+        "weaponsAvailable": ["Gravis bolt cannon", "Conversion beam cannon Long", "Gravis Autocannon", "Gravis Melta-cannon", "Kheres assault cannon", "Twin lascannon", "Twin volkite culverin", "Gravis Power Fist"],
+        "cost": 150
     }
 ]

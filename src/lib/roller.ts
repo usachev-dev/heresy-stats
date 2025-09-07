@@ -1,18 +1,19 @@
-import type { TargetData, Weapon } from "./data-service";
+import type { TargetData, Weapon } from "./data-service.ts";
 
 export interface AttackResultStats{
-    attackedToKillOne: number;
-    ptToKillOne: number;
-    killedPer10: number;
+    attackedToKillSquad: number;
+    ptToKillSquad: number;
+    killedPerSquad: number;
     killedPer100pt: number;
     ptsKilledPer100pt: number;
 }
 
+
 function d6(): number {
-  return Math.floor(Math.random() * 5) + 1;
+  return Math.floor(Math.random() * 6) + 1;
 }
 
-class Dice {
+export class Dice {
     rolls: number[] = new Array(9999).fill(0).map(d6)
     current = 0;
     lastRoll = 1;
@@ -40,9 +41,9 @@ export class Roller {
     
     makeAttack(weapon: Weapon, target: TargetData): AttackResultStats {
         let result: AttackResultStats = {
-            attackedToKillOne: 0,
-            ptToKillOne: 0,
-            killedPer10: 0,
+            attackedToKillSquad: 0,
+            ptToKillSquad: 0,
+            killedPerSquad: 0,
             killedPer100pt: 0,
             ptsKilledPer100pt: 0
         };
@@ -57,6 +58,18 @@ export class Roller {
         for (let count = 1; true; count++) {
             
             let atk = this.rollAttack(weapon, t)
+            if (deflagrate(weapon)) {
+                let addatk = this.rollAttack({
+                    ...weapon,
+                    dmg: 1,
+                    ap: 0,
+                    s: deflagrate(weapon),
+                    a: atk.dmg % weapon.dmg,
+                    special: []
+                }, t)
+                atk.dmg += addatk.dmg
+                atk.killed += addatk.killed
+            }
             ptsAttacked += weapon.totalCost
             killed += atk.killed
             ptsKilled += atk.killed * target.cost
@@ -66,30 +79,29 @@ export class Roller {
             if (atk.dmg > 0 && atk.dmg >= target.w) {
                 t.w = target.w
             }
-            if (!result.attackedToKillOne && atk.killed > 0) {
-                result.attackedToKillOne = count
+            if (!result.attackedToKillSquad && killed > target.squadSize) {
+                result.attackedToKillSquad = count
             }
-            if (!result.ptToKillOne && atk.killed > 0) {
-                result.ptToKillOne = weapon.totalCost * count
+            if (!result.ptToKillSquad && killed > target.squadSize) {
+                result.ptToKillSquad = weapon.totalCost * count / killed 
             }
-            if (count === 10) {
-                result.killedPer10 = killed
+            if (count === weapon.squadSize) {
+                result.killedPerSquad = killed
             }
             if (!result.killedPer100pt && weapon.totalCost * count >= 100) {
                 result.killedPer100pt = killed
             }
-            if (!result.ptsKilledPer100pt && weapon.totalCost * count >= 100) {
-                result.ptsKilledPer100pt = ptsAttacked
+            if (!result.ptsKilledPer100pt && weapon.totalCost * count >= 100 && killed > 0) {
+                let killerPts = weapon.totalCost * count
+                let killedPts = killed * target.cost
+
+                result.ptsKilledPer100pt = (100 * killedPts) / killerPts
             }
 
-            if (count > 1000) {
-                console.log('LOOP', count, weapon.name, target.name, result)
-            }
-            
             if (
-                count >= 10 &&
-                !!result.attackedToKillOne &&
-                !!result.ptToKillOne &&
+                count >= weapon.squadSize &&
+                !!result.attackedToKillSquad &&
+                !!result.ptToKillSquad &&
                 !!result.killedPer100pt &&
                 !!result.ptsKilledPer100pt 
             ) {
@@ -103,14 +115,32 @@ export class Roller {
 
     rollAttack(weapon: Weapon, target: TargetData): {killed: number, dmg: number} {
         let result = {killed: 0, dmg: 0};
-        
+        if (!!target.av && weapon.s + 6 < target.av) {
+            return result
+        }
         new Array(weapon.a).fill(0).forEach(_ => {
             let w = {...weapon}
             let t = {...target}
+            let rolledCritical = false;
+            let rolledRending = false;
 
             if (!this.dice.test(hitTn(w, t))) {return result}
-            
-            if (!this.dice.test(woundTn(w, t))) {return result}
+            if (critical(w) && this.dice.lastRoll >= critical(w)) {
+                w.dmg++
+                rolledCritical = true
+            }
+            if (rending(w) && this.dice.lastRoll >= rending(w)) {
+                rolledRending = true
+            }
+
+            let wounded = this.dice.test(woundTn(w, t))
+            if(!wounded && !rolledCritical && !rolledRending) {return result}
+            if (breaching(w) && (this.dice.lastRoll >= breaching(w) || rolledCritical || rolledRending)) {
+                w.ap = 2
+            }
+            if (shred(w) && (this.dice.lastRoll >= shred(w) || rolledCritical || rolledRending)) {
+                w.dmg++
+            }
 
             if (this.dice.test(saveTn(w, t))) {return result}
 
@@ -127,18 +157,49 @@ export class Roller {
 
 }
 
+
+
+function specialRule(w: Weapon, rule: string): number {
+    let found = w.special.find(s => s.name.toLowerCase() === rule)
+    if (found) {
+        return found.value
+    }
+    return 0
+}
+function breaching(w: Weapon): number {
+    return specialRule(w, "breaching")
+}
+function rending(w: Weapon): number {
+    return specialRule(w, "rending")
+}
+function shred(w: Weapon): number {
+    return specialRule(w, "shred")
+}
+function critical(w: Weapon): number {
+    return specialRule(w, "critical")
+}
+function deflagrate(w: Weapon): number {
+    return specialRule(w, "deflagrate")
+}
+function armourbane(w: Weapon): boolean {
+    return !!w.special.find(s => s.name.toLowerCase() === "armourbane")
+}
+
 export function canKill(weapon: Weapon, target: TargetData): boolean {
+    if (weapon.a <= 0) {
+        return false
+    }
     if (hitTn(weapon, target) > 6) {
         return false
     } 
     if (woundTn(weapon, target) > 6) {
-        return false;
+        return false
     }
     return true
 }
 
 
-function hitTn(weapon: Weapon, target: TargetData): number {
+export function hitTn(weapon: Weapon, target: TargetData): number {
     if (weapon.type === "shoot") {
         return shoottn(weapon.bs)
     } 
@@ -148,7 +209,7 @@ function hitTn(weapon: Weapon, target: TargetData): number {
     return 4;
 }
 
-function shoottn(bs: number) {
+export function shoottn(bs: number) {
     if (bs === 0) {
         return 7
     }
@@ -159,7 +220,7 @@ function shoottn(bs: number) {
 }
 
 
-function cctn(atkws: number, defws: number): number {
+export function cctn(atkws: number, defws: number): number {
     if (atkws === defws) {
         return 4
     }
@@ -178,39 +239,59 @@ function cctn(atkws: number, defws: number): number {
     return 4
 }
 
-function woundTn(weapon: Weapon, target: TargetData): number {
+export function woundTn(weapon: Weapon, target: TargetData): number {
     if (!!target.av) {
-        return woundTnAV(weapon.s, target.av)
+        return woundTnAV(weapon, target.av)
     }
     if (!!target.t) {
-        return woundTnT(weapon.s, target.t)
+        return woundTnT(weapon, target.t)
     }
     return 7
 }
 
-function woundTnT(s: number, t: number): number {
-    if (s === t) {
-        return 4
-    }
-    if (t - s > 2 ) {
+export function woundTnT(w: Weapon, t: number): number {
+    let s = w.s
+    if (t - s > 3) {
         return 7
     }
-    if (s - t >= 2) {
+    if (t - s >= 2) {
+        return 6
+    }
+    if (t - s == 1) {
+        return 5
+    }
+    if (t - s == 0) {
+        return 4
+    }
+    if (t - s == -1) {
+        return 3
+    }
+    if (t - s <= -2) {
         return 2
     }
-    return 4 - (s - t)
+    return 7
 }
 
-function woundTnAV(s: number, av: number): number {
+export function woundTnAV(w: Weapon, av: number): number {
+    let s = w.s
+    if (armourbane(w)) {
+        s++
+    }
     return av - s;
 }
 
-function saveTn(weapon: Weapon, target: TargetData): number {
-    if (weapon.ap <= target.save) {
+export function saveTn(weapon: Weapon, target: TargetData): number {
+    if (!target.save && !!target.invul) {
+        return target.invul
+    }
+    if (!target.save) {
+        return 7
+    }
+    if (weapon.ap > 0 && weapon.ap <= target.save) {
         if (!!target.invul) {
             return target.invul
         }
         return 7
     }
-    return target.save
+    return Math.max(2, target.save)
 }

@@ -6,10 +6,7 @@
         "s": 4,
         "ap": 5,
         "dmg": 1,
-        "special": [{
-            "name": "Heavy FP",
-            "value": 1
-        }],
+        "special": ["Heavy FP"],
         "cost": 0
     },
     {
@@ -22,6 +19,260 @@
         "special": []
     },
     {
+        "name": "Chainsword",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 0,
+        "ap": 5,
+        "dmg": 1,
+        "special": [{
+            "name": "shred",
+            "value": 6
+        }]
+    },
+    {
+        "name": "Chainaxe",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 1,
+        "ap": 5,
+        "dmg": 1,
+        "special": [{
+            "name": "shred",
+            "value": 6
+        }]
+    },
+    {
+        "name": "Chainfist",
+        "type": "cc" ,
+        "am": -1,
+        "sm": 6,
+        "ap": 25,
+        "dmg": 2,
+        "special": [{
+            "name": "shred",
+            "value": 6
+        }, "armourbane"]
+    },
+    {
+        "name": "Power sword",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 0,
+        "ap": 3,
+        "dmg": 1,
+        "special": [
+            {
+                "name": "breaching",
+                "value": 6
+            }
+        ]
+    },
+    {
+        "name": "Power axe",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 1,
+        "ap": 3,
+        "dmg": 1,
+        "special": [
+            {
+                "name": "breaching",
+                "value": 5
+            }
+        ]
+    },
+    {
+        "name": "Power maul",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 2,
+        "ap": 3,
+        "dmg": 1,
+        "special": [
+            {
+                "name": "breaching",
+                "value": 6
+            }
+        ]
+    },
+    {
+        "name": "Power fist",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 4,
+        "ap": 2,
+        "dmg": 2,
+        "cost": 10,
+        "special": []
+    },
+    {
+        "name": "Thunder Hammer",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 3,
+        "ap": 2,
+        "dmg": 2,
+        "cost": 10,
+        "special": []
+    },
+    {
+        "name": "Lightning Claw",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 0,
+        "ap": 3,
+        "dmg": 1,
+        "cost": 5,
+        "special": [
+            {
+                "name": "rending",
+                "value": 6
+            },
+            {
+                "name": "breaching",
+                "value": 6
+            }
+        ]
+    },
+    {
+        "name": "Pair of Lightning Claws",
+        "type": "cc" ,
+        "am": 2,
+        "sm": 0,
+        "ap": 3,
+        "dmg": 1,
+        "cost": 10,
+        "special": [
+            {
+                "name": "rending",
+                "value": 6
+            },
+            {
+                "name": "breaching",
+                "value": 6
+            }
+        ]
+    },
+    {
+        "name": "Power sword vet",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 0,
+        "ap": 3,
+        "dmg": 1,
+        "cost": 10,
+        "special": [
+            {
+                "name": "breaching",
+                "value": 6
+            }
+        ]
+    },
+    {
+        "name": "Power axe vet",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 1,
+        "ap": 3,
+        "dmg": 1,
+        "cost": 10,
+        "special": [
+            {
+                "name": "breaching",
+                "value": 5
+            }
+        ]
+    },
+    {
+        "name": "Power maul vet",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 2,
+        "ap": 3,
+        "dmg": 1,
+        "cost": 10,
+        "special": [
+            {
+                "name": "breaching",
+                "value": 6
+            }
+        ]
+    },
+    {
+        "name": "Power fist vet",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 4,
+        "ap": 2,
+        "dmg": 2,
+        "cost": 15,
+        "special": []
+    },
+    {
+        "name": "Thunder Hammer vet",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 3,
+        "ap": 2,
+        "dmg": 2,
+        "cost": 15,
+        "special": []
+    },
+    {
+        "name": "Lightning Claw vet",
+        "type": "cc" ,
+        "am": 0,
+        "sm": 0,
+        "ap": 3,
+        "dmg": 1,
+        "cost": 10,
+        "special": [
+            {
+                "name": "rending",
+                "value": 6
+            },
+            {
+                "name": "breaching",
+                "value": 6
+            }
+        ]
+    },
+    {
+        "name": "Pair of Lightning Claws vet",
+        "type": "cc" ,
+        "am": 2,
+        "sm": 0,
+        "ap": 3,
+        "dmg": 1,
+        "cost": 10,
+        "special": [
+            {
+                "name": "rending",
+                "value": 6
+            },
+            {
+                "name": "breaching",
+                "value": 6
+            }
+        ]
+    },
+    {
+        "name": "Paragon Blade",
+        "type": "cc" ,
+        "am": 2,
+        "sm": 1,
+        "ap": 2,
+        "dmg": 1,
+        "special": [
+            {
+                "name": "critical",
+                "value": 6
+            }
+        ]
+    },
+    
+    {
         "name": "Bolter",
         "type": "shoot" ,
         "a": 2,
@@ -29,5 +280,412 @@
         "ap": 5,
         "dmg": 1,
         "special": []
+    },
+    {
+        "name": "Twin Bolter",
+        "type": "shoot" ,
+        "a": 4,
+        "s": 4,
+        "ap": 5,
+        "dmg": 1,
+        "special": ["assault steady"]
+    },
+    {
+        "name": "Twin Plasma",
+        "type": "shoot" ,
+        "a": 2,
+        "s": 6,
+        "ap": 4,
+        "dmg": 1,
+        "cost": 10,
+        "special": ["assault steady", 
+            {
+                "name": "breaching",
+                "value": 5
+            }
+        ]
+    },
+    {
+        "name": "Twin Plasma Overload",
+        "type": "shoot" ,
+        "a": 2,
+        "s": 7,
+        "ap": 4,
+        "dmg": 1,
+        "cost": 10,
+        "special": ["assault steady", 
+            {
+                "name": "breaching",
+                "value": 4
+            }
+        ]
+    },
+    {
+        "name": "Reaper Autocannon",
+        "type": "shoot" ,
+        "a": 2,
+        "s": 6,
+        "ap": 4,
+        "dmg": 2,
+        "cost": 15,
+        "special": ["Heavy FP",
+            {
+                "name": "breaching",
+                "value": 6
+            }
+        ]
+    },
+    {
+        "name": "Meltagun",
+        "type": "shoot" ,
+        "a": 1,
+        "s": 8,
+        "ap": 2,
+        "dmg": 3,
+        "cost": 15,
+        "special": ["melta"]
+    },
+    {
+        "name": "Plasmagun",
+        "type": "shoot" ,
+        "a": 2,
+        "s": 6,
+        "ap": 4,
+        "dmg": 1,
+        "cost": 10,
+        "special": [
+            {
+                "name": "breaching",
+                "value": 6
+            }
+        ]
+    },
+    {
+        "name": "Plasmagun overload",
+        "type": "shoot" ,
+        "a": 2,
+        "s": 7,
+        "ap": 4,
+        "dmg": 1,
+        "cost": 10,
+        "special": [
+            {
+                "name": "breaching",
+                "value": 5
+            }
+        ]
+    },
+    {
+        "name": "Volkite Charger steady",
+        "type": "shoot" ,
+        "a": 2,
+        "s": 5,
+        "ap": 5,
+        "dmg": 1,
+        "cost": 0,
+        "special": ["assault steady",
+            {
+                "name": "deflagrate",
+                "value": 5
+            }
+        ]
+    },
+    {
+        "name": "Volkite Charger",
+        "type": "shoot" ,
+        "a": 2,
+        "s": 5,
+        "ap": 5,
+        "dmg": 1,
+        "cost": 5,
+        "special": ["assault",
+            {
+                "name": "deflagrate",
+                "value": 5
+            }
+        ]
+    },
+    {
+        "name": "Volkite Caliver",
+        "type": "shoot" ,
+        "a": 2,
+        "s": 6,
+        "ap": 5,
+        "dmg": 1,
+        "cost": 5,
+        "special": [
+            {
+                "name": "deflagrate",
+                "value": 6
+            }
+        ]
+    },
+    {
+        "name": "Rotor cannon",
+        "type": "shoot" ,
+        "a": 3,
+        "s": 3,
+        "ap": 0,
+        "dmg": 1,
+        "cost": 10,
+        "special": ["Heavy FP"]
+    },
+    {
+        "name": "Heavy bolter",
+        "type": "shoot" ,
+        "a": 3,
+        "s": 5,
+        "ap": 4,
+        "dmg": 1,
+        "cost": 10,
+        "special": ["Heavy FP"]
+    },
+    {
+        "name": "Autocannon",
+        "type": "shoot" ,
+        "a": 2,
+        "s": 7,
+        "ap": 4,
+        "dmg": 2,
+        "cost": 20,
+        "special": ["Heavy FP",
+            {
+                "name": "breaching",
+                "value": 6            
+            }]
+    },
+    {
+        "name": "Missile Launcher Krak",
+        "type": "shoot" ,
+        "a": 1,
+        "s": 8,
+        "ap": 3,
+        "dmg": 1,
+        "cost": 15,
+        "special": ["Heavy D"]
+    },
+    {
+        "name": "Multi-melta",
+        "type": "shoot" ,
+        "a": 1,
+        "s": 8,
+        "ap": 2,
+        "dmg": 3,
+        "cost": 25,
+        "special": ["Heavy S", "melta"]
+    },
+    {
+        "name": "Volkite Culevrin",
+        "type": "shoot" ,
+        "a": 3,
+        "s": 6,
+        "ap": 5,
+        "dmg": 1,
+        "cost": 15,
+        "special": ["Heavy FP", "deflagrate"]
+    },
+    {
+        "name": "Lascannon",
+        "type": "shoot" ,
+        "a": 1,
+        "s": 9,
+        "ap": 2,
+        "dmg": 1,
+        "cost": 25,
+        "special": ["Heavy D", "armourbane"]
+    },
+    {
+        "name": "Gravis bolt cannon",
+        "type": "shoot" ,
+        "a": 6,
+        "s": 5,
+        "ap": 4,
+        "dmg": 2,
+        "cost": 0,
+        "special": ["Heavy FP", "double"]
+    },
+    {
+        "name": "Conversion beam cannon Long",
+        "type": "shoot" ,
+        "a": 1,
+        "s": 8,
+        "ap": 2,
+        "dmg": 3,
+        "cost": 20,
+        "special": ["Heavy S", "double"]
+    },
+    {
+        "name": "Gravis Autocannon",
+        "type": "shoot",
+        "a": 3,
+        "s": 8,
+        "ap": 4,
+        "dmg": 2,
+        "cost": 10,
+        "special": ["Heavy FP", "double",
+            {
+                "name": "breaching",
+                "value": 6
+            }
+        ]
+    },
+    {
+        "name": "Gravis Melta-cannon",
+        "type": "shoot",
+        "a": 3,
+        "s": 9,
+        "ap": 2,
+        "dmg": 4,
+        "cost": 15,
+        "special": ["Heavy S", "Melta", "double"]
+    },
+    {
+        "name": "Kheres assault cannon",
+        "type": "shoot",
+        "a": 5,
+        "s": 6,
+        "ap": 4,
+        "dmg": 1,
+        "cost": 15,
+        "special": ["Heavy FP", "double", {
+                "name": "breaching",
+                "value": 6
+            }]
+    },
+    {
+        "name": "Twin lascannon",
+        "type": "shoot",
+        "a": 2,
+        "s": 9,
+        "ap": 2,
+        "dmg": 1,
+        "cost": 15,
+        "special": ["Heavy d", "double", "armourbane"]
+    },
+    {
+        "name": "Twin lascannon LR",
+        "type": "shoot",
+        "a": 2,
+        "s": 9,
+        "ap": 2,
+        "dmg": 1,
+        "cost": 0,
+        "special": ["Heavy d", "double", "armourbane"]
+    },
+    {
+        "name": "Twin volkite culverin",
+        "type": "shoot",
+        "a": 6,
+        "s": 6,
+        "ap": 5,
+        "dmg": 1,
+        "cost": 15,
+        "special": ["Heavy FP", "double", "deflagrate"]
+    },
+    {
+        "name": "Gravis Power Fist",
+        "type": "cc",
+        "a": 0,
+        "s": 3,
+        "ap": 2,
+        "dmg": 3,
+        "cost": 5,
+        "special": []
+    },
+    {
+        "name": "Gravis heavy bolter battery",
+        "type": "shoot",
+        "a": 8,
+        "s": 5,
+        "ap": 4,
+        "dmg": 1,
+        "cost": 0,
+        "special": []
+    },
+    {
+        "name": "Laser Destroyer",
+        "type": "shoot",
+        "a": 2,
+        "s": 10,
+        "ap": 2,
+        "dmg": 2,
+        "cost": 25,
+        "special": ["Heavy D", "armourbane"]
+    },
+    {
+        "name": "Magna Laser Destroyer",
+        "type": "shoot",
+        "a": 2,
+        "s": 10,
+        "ap": 2,
+        "dmg": 3,
+        "cost": 20,
+        "special": ["ornance d", "armourbane"]
+    },
+    {
+        "name": "Iliastus assault cannon",
+        "type": "shoot",
+        "a": 3,
+        "s": 6,
+        "ap": 4,
+        "dmg": 1,
+        "cost": 20,
+        "special": ["Heavy FP", {
+                "name": "breaching",
+                "value": 6
+            }]
+    },
+    {
+        "name": "Iliastus assault cannon overload",
+        "type": "shoot",
+        "a": 5,
+        "s": 6,
+        "ap": 4,
+        "dmg": 1,
+        "cost": 20,
+        "special": ["Heavy FP", {
+                "name": "breaching",
+                "value": 6
+            }]
+    },
+    {
+        "name": "Astartes Shotgun",
+        "type": "shoot",
+        "a": 2,
+        "s": 4,
+        "ap": 0,
+        "dmg": 1,
+        "cost": 2,
+        "special": ["assault"]
+    },
+    {
+        "name": "Disintegrator rifle overload",
+        "type": "shoot",
+        "a": 1,
+        "s": 4,
+        "ap": 3,
+        "dmg": 2,
+        "cost": 5,
+        "special": []
+    },
+    {
+        "name": "Disintegrator blaster overload",
+        "type": "shoot",
+        "a": 1,
+        "s": 5,
+        "ap": 2,
+        "dmg": 2,
+        "cost": 10,
+        "special": []
+    },
+    {
+        "name": "Heavy Disintegrator overload",
+        "type": "shoot",
+        "a": 1,
+        "s": 6,
+        "ap": 2,
+        "dmg": 2,
+        "cost": 15,
+        "special": ["Heavy FP"]
     }
 ]

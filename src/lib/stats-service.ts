@@ -1,11 +1,11 @@
-import type { Attacker, DataService, TargetData, Weapon } from "./data-service";
-import { canKill, Roller, type AttackResultStats } from "./roller";
-import {mode, mean} from "simple-statistics";
+import type { Attacker, DataService, TargetData, Weapon } from "./data-service.ts";
+import { canKill, Roller, type AttackResultStats } from "./roller.ts";
+import {mean, median} from "simple-statistics";
 
 export interface Stats {
-    modeToKillOne: number;
-    meanPtToKillOne: number;
-    meanKilledPer10: number;
+    medianToKillSquad: number;
+    meanPtToKillSquad: number;
+    meanKilledPerSquad: number;
     meanKilledPer100pt: number;
     meanPtsKilledPer100pt: number;
 }
@@ -24,8 +24,7 @@ export interface AttackerStats {
 
 export class StatsService {
     roller = new Roller();
-    constructor(private data: DataService) {
-        console.log('StatsService')
+    constructor(private data: DataService, private testCount: number) {
         this.table = this.data.attackers.map((atk) => this.attackerStatsFromAttacker(atk, this.data.targets))
     }
     table: AttackerStats[];
@@ -33,19 +32,19 @@ export class StatsService {
     weaponAtTargetStats(weapon: Weapon, target: TargetData): Stats {
         if (!canKill(weapon, target)) {
             return {
-                modeToKillOne: 0,
-                meanPtToKillOne: 0,
-                meanKilledPer10: 0,
+                medianToKillSquad: 0,
+                meanPtToKillSquad: 0,
+                meanKilledPerSquad: 0,
                 meanKilledPer100pt: 0,
                 meanPtsKilledPer100pt: 0,
             };
         }
-        let attackResults: AttackResultStats[] = new Array(9999).fill(0).map(() => this.roller.makeAttack(weapon, target));
+        let attackResults: AttackResultStats[] = new Array(this.testCount).fill(0).map(() => this.roller.makeAttack(weapon, target));
         
         let result = {
-            modeToKillOne: mode(attackResults.map(r => r.attackedToKillOne)),
-            meanPtToKillOne: mean(attackResults.map(r => r.ptToKillOne)),
-            meanKilledPer10: mean(attackResults.map(r => r.killedPer10)),
+            medianToKillSquad: median(attackResults.map(r => r.attackedToKillSquad)),
+            meanPtToKillSquad: mean(attackResults.map(r => r.ptToKillSquad)),
+            meanKilledPerSquad: mean(attackResults.map(r => r.killedPerSquad)),
             meanKilledPer100pt: mean(attackResults.map(r => r.killedPer100pt)),
             meanPtsKilledPer100pt: mean(attackResults.map(r => r.ptsKilledPer100pt)),
         };
