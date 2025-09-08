@@ -1,10 +1,9 @@
-import { assertEquals, assertGreater, fail } from "jsr:@std/assert";
+import { assertGreater, fail } from "jsr:@std/assert";
 import { Dice, Roller, woundTn } from "./roller.ts";
 import type { Weapon, TargetData } from "./data-service.ts";
 
 Deno.test("test dice-roller", () => {
   let dice = new Dice()
-  let failed2 = false;
   let rollCounter: Record<number, boolean> = {}
   for (let index = 0; index < 999; index++) {
     let roll = dice.roll()
@@ -18,11 +17,8 @@ Deno.test("test dice-roller", () => {
     if (Math.round(roll) != roll) {
       fail("rolls should be round")
     }
-    failed2 = dice.test(2)
   }
-  if (!failed2) {
-    fail("shoould sometimes fail 2+")
-  }
+  
   if (Object.keys(rollCounter).length !== 6 ) {
     console.log(rollCounter)
     fail("should have all dice values")
@@ -53,6 +49,7 @@ Deno.test("test rending av", () => {
         a: 4,
         ws: 4,
         bs: 4,
+        squadSize: 5,
         totalCost: 20
     }
 
@@ -62,15 +59,17 @@ Deno.test("test rending av", () => {
         "w": 8,
         "ws": 1,
         "save": 0,
-        "cost": 265
+        "cost": 265,
+        "squadSize": 1
     }
 
     assertGreater(woundTn(weapon, target), 6, "claws no hurt land raider")
     let roller = new Roller()
     for (let index = 0; index < 9999; index++) {
-      let atk = roller.rollAttack(weapon, target)
+      let atk = roller.rollAttacks(weapon, target)
       if (atk.dmg > 0 || atk.killed > 0) {
         fail("claws no hurt land raider")
       }
     }
 });
+

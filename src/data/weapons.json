@@ -271,6 +271,21 @@
             }
         ]
     },
+    {
+        "name": "Kraken bolter",
+        "type": "shoot" ,
+        "a": 2,
+        "s": 4,
+        "ap": 5,
+        "dmg": 1,
+        "special": [
+            {
+                "name": "breaching",
+                "value": 4
+            }
+        ]
+    },
+
     
     {
         "name": "Bolter",

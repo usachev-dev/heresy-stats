@@ -7,13 +7,18 @@ import '../styles/index.css';
 // Get all dinosaurs with slugs for linking
 let data = new DataService();
 let stats = new StatsService(data, 99999);
+let table = stats.makeTable()
 
 function round2(num: number): number {
 	return Math.round(num * 100) / 100
 }
+function round1(num: number): number {
+	return Math.round(num * 10) / 10
+}
 function round(num: number): number {
 	return Math.round(num)
 }
+
 await Deno.writeTextFile("./dist/data.json",JSON.stringify(stats.table));
 ---
 
@@ -29,7 +34,7 @@ await Deno.writeTextFile("./dist/data.json",JSON.stringify(stats.table));
 		<div class="container">
 		<h1>Horus heresy weapons stats table</h1>
 		{
-			stats.table.map((atk: AttackerStats) => (
+			table.map((atk: AttackerStats) => (
 				<table class="table">
 					<tbody>
 						<tr>
@@ -38,7 +43,8 @@ await Deno.writeTextFile("./dist/data.json",JSON.stringify(stats.table));
 						<tr>
 							<th>Weapon</th>
 							<th>Target</th>
-							<th>Median shot to kill squad</th>
+							<th>Mean shot to kill squad</th>
+							<th>80% quantile to kill squad</th>
 							<th>Median killed per squad </th>
 							<th>Mean pts killed per 100pts</th>
 						</tr>
@@ -46,8 +52,9 @@ await Deno.writeTextFile("./dist/data.json",JSON.stringify(stats.table));
 							atk.results.map((results: AttackResult) => <tr>
 								<td>{results.weapon.name}</td>
 								<td>{results.target.name}{results.target.squadSize > 1 ? ` (${results.target.squadSize})` : ``}</td>
-								<td>{round(results.stats.medianToKillSquad)}</td>
-								<td>{round2(results.stats.meanKilledPerSquad)}</td>
+								<td>{round2(results.stats.meanToKillSquad)}</td>
+								<td>{Math.ceil(results.stats.quantile80ToKillSquad)}</td>
+								<td>{round1(results.stats.meanKilledPerSquad)}</td>
 								<td>{round(results.stats.meanPtsKilledPer100pt)}</td>
 							</tr>
 						)}

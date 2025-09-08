@@ -5,9 +5,19 @@
         "ws": 4,
         "bs": 4,
         "s": 4,
-        "weaponsAvailable": ["Tactical Bolter", "Bolter", "CCW"],
+        "weaponsAvailable": ["Tactical Bolter", "Bolter", "CCW", "Krak grenade"],
         "cost": 10,
         "squadSize": 10
+    },
+    {
+        "name": "Seeker",
+        "a": 1,
+        "ws": 4,
+        "bs": 5,
+        "s": 4,
+        "weaponsAvailable": ["Kraken bolter"],
+        "cost": 21,
+        "squadSize": 5
     },
     {
         "name": "Assault Marine",
@@ -98,7 +108,7 @@
     },
     {
         "name": "Terminator",
-        "a": 1,
+        "a": 2,
         "ws": 4,
         "bs": 4,
         "s": 4,

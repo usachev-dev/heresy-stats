@@ -204,6 +204,12 @@ function snapShotBs(bs: number): number {
 export class DataService {
     attackers: Attacker[] = attackersData.map(attackerFromData);
     targets: TargetData[] = targetsData;
+    attacker(name: string): Attacker | undefined {
+        return this.attackers.find(a => a.name.toLowerCase() === name.toLowerCase())
+    }
+    target(name: string): TargetData | undefined {
+        return this.targets.find(a => a.name.toLowerCase() === name.toLowerCase())
+    }
     constructor() {
     }
 }

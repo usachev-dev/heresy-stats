@@ -50,35 +50,23 @@ export class Roller {
         if (!canKill(weapon, target)) {
             return result;
         }
-        let t = {...target}
         let killed = 0;
         let ptsKilled = 0;
         let ptsAttacked = 0;
-
+        let woundsLeft = target.w
         for (let count = 1; true; count++) {
+            let atk = this.rollAttacks(weapon, {...target, w: woundsLeft})
             
-            let atk = this.rollAttack(weapon, t)
-            if (deflagrate(weapon)) {
-                let addatk = this.rollAttack({
-                    ...weapon,
-                    dmg: 1,
-                    ap: 0,
-                    s: deflagrate(weapon),
-                    a: atk.dmg % weapon.dmg,
-                    special: []
-                }, t)
-                atk.dmg += addatk.dmg
-                atk.killed += addatk.killed
-            }
             ptsAttacked += weapon.totalCost
             killed += atk.killed
             ptsKilled += atk.killed * target.cost
-            if (atk.dmg > 0 && atk.dmg < target.w) {
-                t.w -= atk.dmg
+            if (atk.dmg > 0 && atk.dmg < woundsLeft) {
+                woundsLeft -= atk.dmg
+            }  
+            if (atk.killed > 0 && atk.dmg == 0) {
+                woundsLeft = target.w
             }
-            if (atk.dmg > 0 && atk.dmg >= target.w) {
-                t.w = target.w
-            }
+            
             if (!result.attackedToKillSquad && killed > target.squadSize) {
                 result.attackedToKillSquad = count
             }
@@ -111,47 +99,73 @@ export class Roller {
         }
         return result;
     }
+
+    rollAttack(weapon: Weapon, target: TargetData): boolean {
+        let w = {...weapon}
+        let rolledCritical = false;
+        let rolledRending = false;
+
+        if (!this.dice.test(hitTn(w, target))) {return false}
+        if (critical(w) && this.dice.lastRoll >= critical(w)) {
+            w.dmg++
+            rolledCritical = true
+        }
+        if (rending(w) && this.dice.lastRoll >= rending(w)) {
+            rolledRending = true
+        }
+
+        let wounded = this.dice.test(woundTn(w, target))
+        if(!wounded && !rolledCritical && !rolledRending) {return false}
+        if (breaching(w) && (this.dice.lastRoll >= breaching(w) || rolledCritical || rolledRending)) {
+            w.ap = 2
+        }
+        if (shred(w) && (this.dice.lastRoll >= shred(w) || rolledCritical || rolledRending)) {
+            w.dmg++
+        }
+
+        if (this.dice.test(saveTn(w, target))) {return false}
+
+        return true
+        
+    }
     
 
-    rollAttack(weapon: Weapon, target: TargetData): {killed: number, dmg: number} {
+    rollAttacks(weapon: Weapon, target: TargetData): {killed: number, dmg: number} {
         let result = {killed: 0, dmg: 0};
         if (!!target.av && weapon.s + 6 < target.av) {
             return result
         }
+        let unsaved = 0
         new Array(weapon.a).fill(0).forEach(_ => {
-            let w = {...weapon}
-            let t = {...target}
-            let rolledCritical = false;
-            let rolledRending = false;
-
-            if (!this.dice.test(hitTn(w, t))) {return result}
-            if (critical(w) && this.dice.lastRoll >= critical(w)) {
-                w.dmg++
-                rolledCritical = true
+            if (!this.rollAttack(weapon, target)) {
+                return
             }
-            if (rending(w) && this.dice.lastRoll >= rending(w)) {
-                rolledRending = true
-            }
-
-            let wounded = this.dice.test(woundTn(w, t))
-            if(!wounded && !rolledCritical && !rolledRending) {return result}
-            if (breaching(w) && (this.dice.lastRoll >= breaching(w) || rolledCritical || rolledRending)) {
-                w.ap = 2
-            }
-            if (shred(w) && (this.dice.lastRoll >= shred(w) || rolledCritical || rolledRending)) {
-                w.dmg++
-            }
-
-            if (this.dice.test(saveTn(w, t))) {return result}
-
-            result.dmg += Math.min(w.dmg, t.w)
-
-             if (w.dmg >= target.w) {
+            unsaved++
+            if (weapon.dmg + result.dmg >= target.w ) {
                 result.killed++
-             }
-
+                result.dmg = 0
+                return
+            }
+            result.dmg += weapon.dmg
         })
-        
+        if (deflagrate(weapon) && unsaved > 0) {
+            new Array(unsaved).fill(0).forEach(_ => {
+                if (!this.rollAttack({
+                    ...weapon,
+                    dmg: 1,
+                    ap: 0,
+                    s: deflagrate(weapon),
+                    a: 1,
+                    special: []
+                }, target)) {return}
+                if (result.dmg + 1 >= target.w ) {
+                    result.killed++
+                    result.dmg = 0
+                    return
+                }
+                result.dmg += 1
+            })                
+        }
         return result;
     }
 
@@ -184,9 +198,15 @@ function deflagrate(w: Weapon): number {
 function armourbane(w: Weapon): boolean {
     return !!w.special.find(s => s.name.toLowerCase() === "armourbane")
 }
+function detonate(w: Weapon): boolean {
+    return !!w.special.find(s => s.name.toLowerCase() === "detonate")
+}
 
 export function canKill(weapon: Weapon, target: TargetData): boolean {
     if (weapon.a <= 0) {
+        return false
+    }
+    if (!target.av && detonate(weapon)) {
         return false
     }
     if (hitTn(weapon, target) > 6) {
