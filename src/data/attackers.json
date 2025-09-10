@@ -1,5 +1,35 @@
 [
     {
+        "name": "Militia",
+        "a": 1,
+        "ws": 3,
+        "bs": 3,
+        "s": 3,
+        "weaponsAvailable": ["Militia Rifle"],
+        "cost": 5,
+        "squadSize": 20
+    },
+    {
+        "name": "Heavy Ordnance Battery 4BS",
+        "a": 1,
+        "ws": 3,
+        "bs": 4,
+        "s": 3,
+        "weaponsAvailable": ["Earthshaker cannon", "Siege cannon", "Heavy quad launcher"],
+        "cost": 85,
+        "squadSize": 1
+    },
+    {
+        "name": "Militia 4BS",
+        "a": 1,
+        "ws": 3,
+        "bs": 4,
+        "s": 3,
+        "weaponsAvailable": ["Militia Rifle"],
+        "cost": 5,
+        "squadSize": 20
+    },
+    {
         "name": "Tactical Marine",
         "a": 1,
         "ws": 4,
@@ -84,7 +114,7 @@
         "ws": 1,
         "bs": 4,
         "s": 4,
-        "weaponsAvailable": ["Magna Laser Destroyer"],
+        "weaponsAvailable": ["Magna Laser Destroyer", "Demolisher Cannon"],
         "cost": 140
     },
     {

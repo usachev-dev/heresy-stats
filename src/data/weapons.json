@@ -10,6 +10,26 @@
         "cost": 0
     },
     {
+        "name": "Militia Rifle",
+        "type": "shoot" ,
+        "a": 1,
+        "s": 3,
+        "ap": 0,
+        "dmg": 1,
+        "special": ["Heavy FP"],
+        "cost": 0
+    },
+    {
+        "name": "Lasrifle",
+        "type": "shoot" ,
+        "a": 1,
+        "s": 3,
+        "ap": 6,
+        "dmg": 1,
+        "special": ["Heavy FP"],
+        "cost": 1
+    },
+    {
         "name": "CCW",
         "type": "cc" ,
         "am": 0,
@@ -628,6 +648,16 @@
         "special": ["Heavy D", "armourbane"]
     },
     {
+        "name": "Demolisher Cannon",
+        "type": "shoot",
+        "a": 1,
+        "s": 12,
+        "ap": 3,
+        "dmg": 3,
+        "cost": 0,
+        "special": ["ordnance d", "armourbane"]
+    },
+    {
         "name": "Magna Laser Destroyer",
         "type": "shoot",
         "a": 2,
@@ -635,7 +665,7 @@
         "ap": 2,
         "dmg": 3,
         "cost": 20,
-        "special": ["ornance d", "armourbane"]
+        "special": ["ordnance d", "armourbane"]
     },
     {
         "name": "Iliastus assault cannon",
@@ -702,5 +732,35 @@
         "dmg": 2,
         "cost": 15,
         "special": ["Heavy FP"]
+    },
+    {
+        "name": "Earthshaker cannon",
+        "type": "shoot",
+        "a": 1,
+        "s": 5,
+        "ap": 4,
+        "dmg": 2,
+        "cost": 15,
+        "special": ["ordnance s"]
+    },
+    {
+        "name": "Siege cannon",
+        "type": "shoot",
+        "a": 1,
+        "s": 9,
+        "ap": 4,
+        "dmg": 4,
+        "cost": 5,
+        "special": ["heavy ap"]
+    },
+    {
+        "name": "Heavy quad launcher",
+        "type": "shoot",
+        "a": 4,
+        "s": 7,
+        "ap": 4,
+        "dmg": 2,
+        "cost": 15,
+        "special": ["ordnance fp"]
     }
 ]

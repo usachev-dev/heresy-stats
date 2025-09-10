@@ -85,6 +85,9 @@ export class Roller {
 
                 result.ptsKilledPer100pt = (100 * killedPts) / killerPts
             }
+            if (count > 1000) {
+                // console.log("LOOP", weapon.name, target.name)
+            }
 
             if (
                 count >= weapon.squadSize &&

@@ -165,13 +165,19 @@ function pushWeapon(weapon: Weapon, weapons: Weapon[]) {
             weapons.push({...weapon, dmg: weapon.dmg + 1, name: weapon.name + ' heavy'})
         }
         if (special.name.toLowerCase() === "heavy s") {
-            weapons.push({...weapon, dmg: weapon.s + 1, name: weapon.name + ' heavy'})
+            weapons.push({...weapon, s: weapon.s + 1, name: weapon.name + ' heavy'})
+        }
+        if (special.name.toLowerCase() === "heavy ap") {
+            weapons.push({...weapon, ap: weapon.ap - 1, name: weapon.name + ' heavy'})
         }
         if (special.name.toLowerCase() === "ordnance d") {
-            weapons.push({...weapon, dmg: weapon.dmg + 1, name: weapon.name + ' heavy'})
+            weapons.push({...weapon, dmg: weapon.dmg*2, name: weapon.name + ' ordnance'})
+        }
+        if (special.name.toLowerCase() === "ordnance fp") {
+            weapons.push({...weapon, a: weapon.a*2, name: weapon.name + ' ordnance'})
         }
         if (special.name.toLowerCase() === "ordnance s") {
-            weapons.push({...weapon, s: weapon.s + 1, name: weapon.name + ' heavy'})
+            weapons.push({...weapon, s: weapon.s*2, name: weapon.name + ' ordnance'})
         }
         if (special.name.toLowerCase() === "assault") {
             weapons.push({...weapon, bs: snapShotBs(weapon.bs), name: weapon.name + ' volley'})
